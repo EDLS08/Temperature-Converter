@@ -2,41 +2,43 @@ import java.util.Scanner;
 
 public class TemperatureConverter {
     public static void main(String[] args) {
-        boolean rodando = true;
         Scanner scanner = new Scanner(System.in);
+        boolean running = true;
 
-        while (rodando) {
+        while (running) {
+            System.out.println("\nEscolha uma operação:");
+            System.out.println("1 - Fahrenheit para Celsius");
+            System.out.println("2 - Celsius para Fahrenheit");
+            System.out.println("3 - Sair");
+            System.out.print("Opção: ");
+
+            String input = scanner.nextLine();
+
             try {
-                System.out.println("\nDigite a operação que deseja: 1-Celsius 2-Farenheit 3-Sair");
-                int operation = scanner.nextInt();
+                int operation = Integer.parseInt(input);
 
                 switch (operation) {
                     case 1:
-                        System.out.println("Converter para Celsius (Digite a temperatura em farenheit):");
-                        Double farenheit = scanner.nextDouble();
-                        Double resultCelsius = (5.0 / 9.0) * (farenheit - 32);
-                        System.out.printf("%.2f Farenheit = %.2f Celsius\n", farenheit, resultCelsius);
+                        System.out.print("Temperatura em Fahrenheit: ");
+                        double fahrenheit = Double.parseDouble(scanner.nextLine());
+                        double celsius = (fahrenheit - 32) * 5.0 / 9.0;
+                        System.out.printf("%.2f °F = %.2f °C%n", fahrenheit, celsius);
                         break;
-
                     case 2:
-                        System.out.println("Converter para Farenheit (Digite a temperatura em Celsius):");
-                        Double celsius = scanner.nextDouble();
-                        Double resultFarenheit = (celsius * 1.8) + 32;
-                        System.out.printf("%.2f Celsius = %.2f Farenheit\n", celsius, resultFarenheit);
+                        System.out.print("Temperatura em Celsius: ");
+                        double temperatureCelsius = Double.parseDouble(scanner.nextLine());
+                        double temperatureFahrenheit = temperatureCelsius * 9.0 / 5.0 + 32;
+                        System.out.printf("%.2f °C = %.2f °F%n", temperatureCelsius, temperatureFahrenheit);
                         break;
-
                     case 3:
-                        System.out.println("Saindo...");
-                        rodando = false;
+                        running = false;
+                        System.out.println("Encerrando o conversor...");
                         break;
-
                     default:
-                        throw new IllegalArgumentException("Error: Argumento inválido: " + operation);
+                        System.out.println("Opção inválida. Escolha 1, 2 ou 3.");
                 }
-
-            } catch (IllegalArgumentException e) {
-                System.out.println("\n[ERRO] " + e.getMessage());
-                System.out.println("Reiniciando o conversor de temperatura...\n");
+            } catch (NumberFormatException e) {
+                System.out.println("Entrada inválida. Digite um número.");
             }
         }
 
